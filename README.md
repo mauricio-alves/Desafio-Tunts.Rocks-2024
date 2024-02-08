@@ -13,6 +13,8 @@ The objective is to create an application in a programming language of my choice
 
 After two years of coding with frameworks and libraries, this was a challenge that made me remember my knowledge of React, as well as Javascript methods.
 
+If you want to see the result online, please access this [deploy link](https://tuntsrockchallenge.netlify.app/).
+
 ---
 
 # Desafio Tunts.Rocks - 2024
@@ -29,3 +31,5 @@ O objetivo é criar uma aplicação em uma linguagem de programação de minha p
 6. Uma janela abrirá no seu navegador e o aplicativo será executado.
 
 Depois de dois anos codificando com frameworks e bibliotecas, esse foi um desafio que me fez relembrar meus conhecimentos em React, assim como métodos Javascript.
+
+Se você quiser ver o resultado online, acesse este [link de implantação](https://tuntsrockchallenge.netlify.app/).
