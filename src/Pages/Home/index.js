@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Card } from "../../components/Card";
+import { Header } from "../../components/Header";
+import { Footer } from "../../components/Footer";
 
 export function Home() {
   const [sheetData, setSheetData] = useState({});
@@ -22,11 +25,20 @@ export function Home() {
     getSheetData();
   }, []);
 
-  console.log(sheetData);
+  // console.log("sheetData", sheetData);
 
   return (
-    <div className="">
-      <h1>Desafio Tunts.Rocks - 2024</h1>
+    <div>
+      <Header />
+      <div className="max-w-7xl mx-auto">
+        <div className="flex justify-center p-4">
+          <h2 className="text-2xl font-mono">
+            Resultado das notas da turma 2024/1 em Engenharia de Software
+          </h2>
+        </div>
+        <Card sheetData={sheetData} setSheetData={setSheetData} />
+      </div>
+      <Footer />
     </div>
   );
 }
