@@ -11,7 +11,7 @@ The objective is to create an application in a programming language of my choice
 5. Then, run the `npm start` command;
 6. A window will open in your browser and the application will run.
 
-After two years of coding with frameworks and libraries, this was a challenge that made me remember my knowledge of React, as well as Javascript methods.
+After two years of coding with frameworks and libraries, this was a challenge that made me remember my knowledge of React, Tailwind, consuming APIs and Vanilla Javascript methods.
 
 If you want to see the result online, please access this [deploy link](https://tuntsrockchallenge.netlify.app/).
 
@@ -30,6 +30,6 @@ O objetivo é criar uma aplicação em uma linguagem de programação de minha p
 5. Então, rode o comando `npm start`;
 6. Uma janela abrirá no seu navegador e o aplicativo será executado.
 
-Depois de dois anos codificando com frameworks e bibliotecas, esse foi um desafio que me fez relembrar meus conhecimentos em React, assim como métodos Javascript.
+Depois de dois anos codificando com frameworks e bibliotecas, esse foi um desafio que me fez relembrar meus conhecimentos em React, Tailwind, consumo de APIs e métodos do Vanilla Javascript.
 
 Se você quiser ver o resultado online, acesse este [link de implantação](https://tuntsrockchallenge.netlify.app/).

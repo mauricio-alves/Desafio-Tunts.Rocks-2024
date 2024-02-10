@@ -10,13 +10,14 @@ export function Home() {
   useEffect(() => {
     async function getSheetData() {
       const spreadsheetId = process.env.REACT_APP_GOOGLE_SPREADSHEET_ID;
-      const range = "A1:Z1000";
+      const range = "engenharia_de_software!B4:F27";
       const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
       try {
         const response = await axios.get(
           `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`
         );
+        // console.log("response", response);
         setSheetData(response.data);
       } catch (error) {
         console.log(error);
