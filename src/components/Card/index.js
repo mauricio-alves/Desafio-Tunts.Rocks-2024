@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { SearchBar } from "../SearchBar";
+import { api } from "../../api/api";
+import toast, { Toaster } from "react-hot-toast";
 
 export function Card({ sheetData, setSheetData }) {
   const [search, setSearch] = useState("");
@@ -8,6 +10,7 @@ export function Card({ sheetData, setSheetData }) {
   let totalClasses = 60;
   let situation = [];
   let naf = [];
+  let values = [];
 
   function handleAverage(num1, num2, num3, index) {
     situation.push("A definir");
@@ -16,7 +19,6 @@ export function Card({ sheetData, setSheetData }) {
     );
     return average[index];
   }
-
   // console.log("average", average);
 
   function handleSituation(average, absence, index) {
@@ -48,7 +50,6 @@ export function Card({ sheetData, setSheetData }) {
       );
     }
   }
-
   // console.log("situation", situation);
 
   function handleNaf(average, situation, index) {
@@ -76,7 +77,6 @@ export function Card({ sheetData, setSheetData }) {
       );
     }
   }
-
   // console.log("naf", naf);
 
   function calculateNaf(average, naf, index) {
@@ -90,10 +90,40 @@ export function Card({ sheetData, setSheetData }) {
     }
   }
 
+  async function handleSubmit(situation, naf) {
+    for (let i = 0; i < situation.length; i++) {
+      values[i] = [situation[i], naf[i]];
+    }
+    // console.log(values);
+    try {
+      const response = await api.post("/updateValues", {
+        values: values,
+      });
+      console.log("response", response);
+      toast.success("Planilha atualizada com sucesso!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Erro!");
+    }
+  }
+
   return (
     <div>
       <div>
+        <Toaster />
+      </div>
+      <div>
         <SearchBar search={search} setSearch={setSearch} />
+      </div>
+      <div className="flex justify-center">
+        <button
+          className="focus:outline-none text-white bg-purple hover:bg-blue focus:ring-4 focus:ring-purple font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
+          onClick={() => {
+            handleSubmit(situation, naf);
+          }}
+        >
+          Atualizar planilha
+        </button>
       </div>
       <div className="grid grid-cols-4 font-sans lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
         {sheetData.values
