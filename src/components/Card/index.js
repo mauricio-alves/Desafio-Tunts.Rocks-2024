@@ -1,130 +1,14 @@
-import { useState } from "react";
-import { SearchBar } from "../SearchBar";
-import { api } from "../../api/api";
-import toast, { Toaster } from "react-hot-toast";
+import { useEffect, useState } from "react";
 
-export function Card({ sheetData, setSheetData }) {
-  const [search, setSearch] = useState("");
+export function Card({ sheetData, setSheetData, search, average }) {
+  const [updatedAverage, setUpdatedAverage] = useState();
 
-  let average = [];
-  let totalClasses = 60;
-  let situation = [];
-  let naf = [];
-  let values = [];
-
-  function handleAverage(num1, num2, num3, index) {
-    situation.push("A definir");
-    average.push(
-      ((Number(num1) + Number(num2) + Number(num3)) / 30).toFixed(1)
-    );
-    return average[index];
-  }
-  // console.log("average", average);
-
-  function handleSituation(average, absence, index) {
-    // console.log("absence", absence);
-
-    if (Number(absence) > totalClasses / 4) {
-      situation[index] = "Reprovado por Falta";
-      return (
-        <p className="bg-rose text-white p-2 text-center">{situation[index]}</p>
-      );
-    } else if (average[index] >= 7) {
-      situation[index] = "Aprovado";
-      return (
-        <p className="bg-emerald text-white p-2 text-center">
-          {situation[index]}
-        </p>
-      );
-    } else if (average[index] >= 5 && average[index] < 7) {
-      situation[index] = "Exame Final";
-      return (
-        <p className="bg-yellow text-white p-2 text-center">
-          {situation[index]}
-        </p>
-      );
-    } else {
-      situation[index] = "Reprovado por Nota";
-      return (
-        <p className="bg-rose text-white p-2 text-center">{situation[index]}</p>
-      );
-    }
-  }
-  // console.log("situation", situation);
-
-  function handleNaf(average, situation, index) {
-    // console.log("situation", situation);
-
-    if (situation[index] === "Aprovado") {
-      // console.log("naf", naf);
-      naf.push(0);
-      return (
-        <span className="font-bold bg-emerald text-white px-2">
-          {naf[index]}
-        </span>
-      );
-    } else if (situation[index] === "Exame Final") {
-      naf.push(1);
-      return (
-        <span className="font-bold bg-yellow text-white px-2">
-          {calculateNaf(average, naf, index)}
-        </span>
-      );
-    } else {
-      naf.push(0);
-      return (
-        <span className="font-bold bg-rose text-white px-2">{naf[index]}</span>
-      );
-    }
-  }
-  // console.log("naf", naf);
-
-  function calculateNaf(average, naf, index) {
-    let nota = 0;
-    if (naf[index] !== 0) {
-      while (!(5 <= (Number(average[index]) + nota) / 2)) {
-        nota += 0.1;
-      }
-      // console.log('nota', nota.toFixed(1));
-      return (naf[index] = nota.toFixed(1));
-    }
-  }
-
-  async function handleSubmit(situation, naf) {
-    for (let i = 0; i < situation.length; i++) {
-      values[i] = [situation[i], naf[i]];
-    }
-    // console.log(values);
-    try {
-      const response = await api.post("/updateValues", {
-        values: values,
-      });
-      console.log("response", response);
-      toast.success("Planilha atualizada com sucesso!");
-    } catch (error) {
-      console.log(error);
-      toast.error("Erro!");
-    }
-  }
+  useEffect(() => {
+    setUpdatedAverage(average);
+  }, [average]);
 
   return (
     <div>
-      <div>
-        <Toaster />
-      </div>
-      <div>
-        <SearchBar search={search} setSearch={setSearch} />
-      </div>
-      <div className="flex justify-center">
-        <button
-          className="focus:outline-none text-white bg-purple hover:bg-blue focus:ring-4 focus:ring-purple font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
-          onClick={() => {
-            handleSubmit(situation, naf);
-          }}
-        >
-          Atualizar planilha
-        </button>
-      </div>
       <div className="grid grid-cols-4 font-sans lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
         {sheetData.values
           ?.filter((currentStudent) => {
@@ -137,30 +21,37 @@ export function Card({ sheetData, setSheetData }) {
             return (
               <div key={index} className="m-6">
                 <p>
-                  Nome do Aluno:{" "}
-                  <span className="font-bold">{currentStudent[0]}</span>
+                  Nome do Aluno:
+                  <span className="font-bold ml-1">{currentStudent[0]}</span>
                 </p>
                 <p>
-                  Número de Faltas:{" "}
-                  <span className="font-bold">{currentStudent[1]}</span>
+                  Número de Faltas:
+                  <span className="font-bold ml-1">{currentStudent[1]}</span>
                 </p>
                 <p>
                   Média do Aluno:
-                  <span className="font-bold">
-                    {` ${handleAverage(
-                      currentStudent[2],
-                      currentStudent[3],
-                      currentStudent[4],
-                      index
-                    )}`}
+                  <span className="font-bold ml-1">
+                    {updatedAverage[index]}
                   </span>
                 </p>
                 <div>
                   <h3>Situação do Aluno:</h3>
-                  {handleSituation(average, currentStudent[1], index)}
+                  <p
+                    className={`text-white p-2 text-center ${
+                      !currentStudent[5] ? "bg-purple" : "bg-tahiti"
+                    }`}
+                  >
+                    {!currentStudent[5] ? "Aguardando" : currentStudent[5]}
+                  </p>
                   <p>
-                    Nota para Aprovação Final:{" "}
-                    {handleNaf(average, situation, index)}
+                    Nota para Aprovação Final:
+                    <span
+                      className={`font-bold text-white ml-1 px-2 ${
+                        !currentStudent[5] ? "bg-purple" : "bg-metal"
+                      }`}
+                    >
+                      {!currentStudent[6] ? "?" : currentStudent[6]}
+                    </span>
                   </p>
                 </div>
               </div>
