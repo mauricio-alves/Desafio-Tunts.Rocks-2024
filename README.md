@@ -1,6 +1,6 @@
 # Tunts.Rocks Challenge - 2024
 
-The objective is to create an application in a programming language of my choice that should be able to read a Google Sheets spreadsheet, search for the necessary information, calculate, and write the result in the spreadsheet. For this project, I chose to develop it using React, Tailwind, Axios, Google APIs, and Express.
+The objective is to create an application in a programming language of my choice that should be able to read a Google Sheets spreadsheet, search for the necessary information, calculate, and write the result in the spreadsheet. For this project, I chose to develop it using React, Tailwind, Axios, Google APIs, and Node.
 
 ## How to begin:
 
@@ -31,7 +31,7 @@ If you want to access the spreadsheet, please access this [link](https://docs.go
 
 # Desafio Tunts.Rocks - 2024
 
-O objetivo é criar uma aplicação em uma linguagem de programação de minha preferência que deve ser capaz de ler uma planilha do google sheets, buscar as informações necessárias, calcular e escrever o resultado na planilha. Para esse projeto, escolhi desenvolvê-lo utilizando React, Tailwind, Axios, Google APIs e Express.
+O objetivo é criar uma aplicação em uma linguagem de programação de minha preferência que deve ser capaz de ler uma planilha do google sheets, buscar as informações necessárias, calcular e escrever o resultado na planilha. Para esse projeto, escolhi desenvolvê-lo utilizando React, Tailwind, Axios, Google APIs e Node.
 
 ## Como começar:
 
